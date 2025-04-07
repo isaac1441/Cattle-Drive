@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6713c6e20cb3ffe448d82b19084c5b97
+guid: 1394f2638b282e141aa1b06a341b9dc1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2229004293438679414
-    second: CDhorse_0
+      213: -630834296378682267
+    second: CD background_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CDhorse_0
+      name: CD background_0
       rect:
         serializedVersion: 2
-        x: 479
-        y: 629
-        width: 812
-        height: 644
+        x: 0
+        y: 0
+        width: 1697
+        height: 1800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 679ab3958930fee10800000000000000
-      internalID: 2229004293438679414
+      spriteID: 564173cbc83de37f0800000000000000
+      internalID: -630834296378682267
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CDhorse_0: 2229004293438679414
+      CD background_0: -630834296378682267
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
