@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8120b93345f3c794ab4d25ca0d0e32a4
+guid: a34076fe6c449cb45b1a6f91b9213130
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2764668512825024977
-    second: btn_0
+      213: -2620373890188675194
+    second: cows1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: btn_0
+      name: cows1_0
       rect:
         serializedVersion: 2
-        x: 67
-        y: 120
-        width: 947
-        height: 891
+        x: 0
+        y: 0
+        width: 285
+        height: 281
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d1a4a45d531e5620800000000000000
-      internalID: 2764668512825024977
+      spriteID: 687789884df82abd0800000000000000
+      internalID: -2620373890188675194
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      btn_0: 2764668512825024977
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

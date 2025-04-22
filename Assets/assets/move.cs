@@ -1,45 +1,24 @@
 using UnityEngine;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.VisualScripting;
-
 
 public class move : MonoBehaviour
 {
-
-    public float speed = 5f;
+    public float speed = 2f;
     private Vector3 target;
-    private bool selected;
-    public static List<move> moveableObjects = new List<move>();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        moveableObjects.Add(this);
-        target = transform.position;
+        target = transform.position; // Start at the current position
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && selected)
+        if (Input.GetMouseButtonDown(0)) // Left-click to set a new target position
         {
             target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            target.z = transform.position.z;
+            target.z = transform.position.z; // Keep the Z position unchanged
         }
 
+        // Move the character towards the target position smoothly
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-    }
-
-    private void OnMouseDown()
-    {
-        selected = true;
-
-        foreach (move obj in moveableObjects)
-        {
-            if (obj != this)
-            {
-                obj.selected = false;
-            }
-        }
     }
 }
