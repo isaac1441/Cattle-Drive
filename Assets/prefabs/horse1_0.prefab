@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6343578899018056196}
   m_Layer: 0
   m_Name: horse1_0
-  m_TagString: Untagged
+  m_TagString: Horse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3423456214589390238}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.55, y: 2.01, z: -1}
+  m_LocalPosition: {x: -6.89, y: -1.41, z: -1}
   m_LocalScale: {x: 0.94652045, y: 0.94652045, z: 0.94652045}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17492f5032a38a40852af22b59c3f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 2
 --- !u!61 &6343578899018056196
 BoxCollider2D:
   m_ObjectHideFlags: 0
