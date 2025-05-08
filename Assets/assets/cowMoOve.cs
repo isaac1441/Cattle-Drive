@@ -44,5 +44,10 @@ public class RandomRightMovement : MonoBehaviour
             }
         }
     }
+
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }
 

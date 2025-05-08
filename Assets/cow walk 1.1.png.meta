@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a34076fe6c449cb45b1a6f91b9213130
+guid: 9c678cad39f5a2d4fb2cbc6234143f76
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2620373890188675194
-    second: cows1_0
+      213: -648119501101643025
+    second: cow walk 1.1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cows1_0
+      name: cow walk 1.1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 285
-        height: 281
+        x: 37
+        y: 58
+        width: 400
+        height: 328
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 687789884df82abd0800000000000000
-      internalID: -2620373890188675194
+      spriteID: fea45d46fba6107f0800000000000000
+      internalID: -648119501101643025
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cows1_0: -2620373890188675194
+      cow walk 1.1_0: -648119501101643025
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

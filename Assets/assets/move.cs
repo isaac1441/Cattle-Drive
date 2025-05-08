@@ -20,5 +20,14 @@ public class move : MonoBehaviour
 
         // Move the character towards the target position smoothly
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
+        // Face the direction of movement (only if there's horizontal movement)
+        Vector3 direction = target - transform.position;
+        if (Mathf.Abs(direction.x) > 0.01f)
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = direction.x > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+            transform.localScale = scale;
+        }
     }
 }
