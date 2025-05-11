@@ -6,6 +6,8 @@ public class RandomRightMovement : MonoBehaviour
     private bool movingUp;
     private float directionChangeTimer;
     public float changeInterval = 5f;
+    public AudioSource AudioSource;
+    public AudioClip dyingClip;
 
     private GameManager gameManager;
 
@@ -78,6 +80,7 @@ public class RandomRightMovement : MonoBehaviour
 
     void OnDestroy()
     {
+        AudioSource.PlayOneShot(dyingClip);
         DestroyCow(); // Centralized destruction logic
     }
 }

@@ -12,6 +12,8 @@ public class shooting : MonoBehaviour
     public bool canFire;
     private float timer;
     public float timeBetweenFiring;
+    public AudioSource AudioSource;
+    public AudioClip shootingClip;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,6 +44,7 @@ public class shooting : MonoBehaviour
         if(Input.GetMouseButtonDown(1) && canFire)
         {
             canFire = false;
+            AudioSource.PlayOneShot(shootingClip);
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
         }
     }

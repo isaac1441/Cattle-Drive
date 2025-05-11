@@ -3,30 +3,28 @@ using UnityEngine;
 public class move : MonoBehaviour
 {
     public float speed = 2f;
-    private Vector3 target;
-
-    void Start()
-    {
-        target = transform.position; // Start at the current position
-    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Left-click to set a new target position
-        {
-            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            target.z = transform.position.z; // Keep the Z position unchanged
-        }
+        // Get input from WASD keys
+        float moveX = 0f;
+        float moveY = 0f;
 
-        // Move the character towards the target position smoothly
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.W)) moveY = 1f;
+        if (Input.GetKey(KeyCode.S)) moveY = -1f;
+        if (Input.GetKey(KeyCode.A)) moveX = -1f;
+        if (Input.GetKey(KeyCode.D)) moveX = 1f;
 
-        // Face the direction of movement (only if there's horizontal movement)
-        Vector3 direction = target - transform.position;
-        if (Mathf.Abs(direction.x) > 0.01f)
+        Vector3 moveDirection = new Vector3(moveX, moveY, 0f).normalized;
+
+        // Move the object
+        transform.position += moveDirection * speed * Time.deltaTime;
+
+        // Flip sprite based on horizontal movement
+        if (Mathf.Abs(moveX) > 0.01f)
         {
             Vector3 scale = transform.localScale;
-            scale.x = direction.x > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+            scale.x = moveX > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
             transform.localScale = scale;
         }
     }

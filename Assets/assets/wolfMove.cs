@@ -12,6 +12,10 @@ public class WolfAI : MonoBehaviour
 
     public event System.Action OnWolfKilled; // Event to notify WolfSpawner
 
+    public AudioSource AudioSource;
+    public AudioClip dyingCow;
+    public AudioClip dyingWolf;
+
     void Update()
     {
         if (Time.time >= nextSearchTime)
@@ -73,6 +77,7 @@ public class WolfAI : MonoBehaviour
         // If hit by a bullet, destroy the wolf
         if (other.CompareTag(bulletTag))
         {
+            AudioSource.PlayClipAtPoint(dyingWolf, transform.position);
             KillWolf();
             Destroy(other.gameObject); // Remove bullet on impact
         }
@@ -80,9 +85,12 @@ public class WolfAI : MonoBehaviour
         // If collides with a cow, destroy the cow and the wolf
         if (other.CompareTag(cowTag))
         {
+            AudioSource.PlayClipAtPoint(dyingCow, other.transform.position);
+            AudioSource.PlayClipAtPoint(dyingWolf, transform.position);
             KillWolf();
-            Destroy(other.gameObject); // Remove cow
+            Destroy(other.gameObject);
         }
+
     }
 
     void KillWolf()

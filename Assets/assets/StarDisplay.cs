@@ -20,11 +20,11 @@ public class StarDisplay : MonoBehaviour
 
     private int CalculateStarCount(int cowsRemaining)
     {
-        if (cowsRemaining >= 6)
+        if (cowsRemaining >= 3)
             return 3;
-        else if (cowsRemaining == 4)
-            return 2;
         else if (cowsRemaining == 2)
+            return 2;
+        else if (cowsRemaining == 1)
             return 1;
         else
             return 0;
