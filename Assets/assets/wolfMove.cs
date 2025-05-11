@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class WolfAI : MonoBehaviour
 {
-    public float moveSpeed = 0.5f; // Slow movement speed
+    public float moveSpeed = 1f; // Slow movement speed
     public string cowTag = "Cow";
     private Transform targetCow;
+    private bool facingRight = true; // Track current facing direction
 
     void Update()
     {
@@ -13,8 +14,27 @@ public class WolfAI : MonoBehaviour
         if (targetCow != null)
         {
             // Move slowly toward the cow
-            transform.position = Vector3.Lerp(transform.position, targetCow.position, moveSpeed * Time.deltaTime);
+            Vector3 direction = (targetCow.position - transform.position).normalized;
+            transform.position += direction * moveSpeed * Time.deltaTime;
+
+            // Flip the wolf only between left and right based on movement direction
+            if (direction.x > 0 && !facingRight) // Moving right but facing left
+            {
+                Flip();
+            }
+            else if (direction.x < 0 && facingRight) // Moving left but facing right
+            {
+                Flip();
+            }
         }
+    }
+
+    void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 newScale = transform.localScale;
+        newScale.x *= -1; // Flip the wolf by inverting X scale
+        transform.localScale = newScale;
     }
 
     void FindClosestCow()
