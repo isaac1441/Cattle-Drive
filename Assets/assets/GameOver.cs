@@ -1,65 +1,114 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverScreen;
     public StarDisplay starDisplay;   // <- Reference to StarDisplay script
-    private float timer = 0f;
-    public float gameDuration = 30f;
     private bool gameEnded = false;
 
     public List<GameObject> cows = new List<GameObject>();
+    private int remainingWaves; // Track remaining waves
+    private int activeWolves; // Track active wolves
 
     void Start()
     {
-        // Optional: Auto-fill cow list at start
         cows.AddRange(GameObject.FindGameObjectsWithTag("Cow"));
-    }
 
-    void Update()
-    {
-        if (gameEnded) return;
-
-        timer += Time.deltaTime;
-
-        if (timer >= gameDuration)
+        // Find the WolfSpawner and get max waves
+        WolfSpawner spawner = FindObjectOfType<WolfSpawner>();
+        if (spawner != null)
         {
-            EndGame();
+            remainingWaves = spawner.maxWaves;
         }
     }
 
-    public void CowDespawned()
+    public void CowDespawned(GameObject cow)
     {
-        // Remove a cow from list and check count
-        if (cows.Count > 0)
-            cows.RemoveAt(0);
+        if (cows.Contains(cow))
+        {
+            cows.Remove(cow);
+            Debug.Log($"Cow despawned: {cow.name}. Correct count: {cows.Count}");
+        }
+
+        if (starDisplay != null)
+        {
+            Debug.Log($"Updating stars with {cows.Count} cows remaining");
+            starDisplay.ShowStars(cows.Count); // FORCE refresh after cow removal
+        }
 
         if (cows.Count <= 0)
         {
-            EndGame();
+            EndGame("All cows are dead! You lose.");
         }
     }
+
+
+
+
 
     public void RegisterCow(GameObject cow)
     {
         if (!cows.Contains(cow))
+        {
             cows.Add(cow);
+            Debug.Log($"Registered cow: {cow.name}. Current count: {cows.Count}");
+        }
+        else
+        {
+            Debug.LogWarning($"Duplicate cow registration detected for {cow.name}!");
+        }
     }
+
 
     public void UnregisterCow(GameObject cow)
     {
-        cows.Remove(cow);
+        if (cows.Contains(cow))
+        {
+            cows.Remove(cow);
+            Debug.Log($"Unregistered cow: {cow.name}. Updated count: {cows.Count}");
+        }
+        else
+        {
+            Debug.LogWarning($"Tried to remove a cow that wasn't in the list: {cow.name}");
+        }
     }
 
-    void EndGame()
+
+    public void WolfKilled()
+    {
+        activeWolves--;
+
+        // Check if all wolves are dead AND no more waves remain
+        if (activeWolves <= 0 && remainingWaves <= 0)
+        {
+            EndGame("All wolves defeated! You win.");
+        }
+    }
+
+    public void WaveCompleted()
+    {
+        remainingWaves--;
+
+        Debug.Log("Wave completed! Remaining waves: " + remainingWaves);
+
+        if (remainingWaves <= 0 && activeWolves <= 0)
+        {
+            EndGame("All waves completed! You win.");
+        }
+    }
+
+
+    void EndGame(string message)
     {
         gameEnded = true;
-        Debug.Log("Game Over!");
+        Debug.Log("Game Over! " + message);
 
         // Pause the game
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
 
         // Show Game Over screen
         gameOverScreen.SetActive(true);
@@ -75,10 +124,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Method to restart the game
-    public void RestartGame()
+    public void RestartButton()
     {
-        Time.timeScale = 1f; // Resume normal game speed
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("CD");
     }
 }

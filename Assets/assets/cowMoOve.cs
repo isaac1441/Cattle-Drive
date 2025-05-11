@@ -24,43 +24,60 @@ public class RandomRightMovement : MonoBehaviour
 
     void Update()
     {
-        // Move up or down
+        MoveVertically();
+        HandleDirectionChange();
+        AvoidHorse();
+    }
+
+    void MoveVertically()
+    {
         Vector3 movement = (movingUp ? Vector3.up : Vector3.down) * speed * Time.deltaTime;
         transform.position += movement;
+    }
 
-        // Handle direction change timer
+    void HandleDirectionChange()
+    {
         directionChangeTimer -= Time.deltaTime;
         if (directionChangeTimer <= 0f)
         {
             movingUp = Random.value > 0.5f;
             directionChangeTimer = changeInterval;
         }
+    }
 
-        // Avoid horse
+    void AvoidHorse()
+    {
         GameObject horse = GameObject.FindGameObjectWithTag("Horse");
         if (horse != null)
         {
             float cowToHorseY = horse.transform.position.y - transform.position.y;
-            float movementDirection = movement.y;
 
-            if (Mathf.Sign(cowToHorseY) == Mathf.Sign(movementDirection) && Mathf.Abs(cowToHorseY) < 2.0f)
+            // Ensure cow changes direction ONLY when the horse is truly close and moving toward it
+            if (Mathf.Abs(cowToHorseY) < 2.0f && Mathf.Sign(cowToHorseY) == Mathf.Sign(movingUp ? 1 : -1))
             {
-                movingUp = Random.value > 0.5f;
-                directionChangeTimer = changeInterval;
+                movingUp = !movingUp; // Flip movement direction to avoid the horse
+                directionChangeTimer = changeInterval; // Reset the change timer
             }
         }
     }
 
     void OnBecameInvisible()
     {
+        DestroyCow();
+    }
+
+    void DestroyCow()
+    {
+        if (gameManager != null)
+        {
+            gameManager.CowDespawned(gameObject);
+            gameManager.UnregisterCow(gameObject); // Ensure it is properly removed from tracking
+        }
         Destroy(gameObject);
     }
 
     void OnDestroy()
     {
-        if (gameManager != null)
-        {
-            gameManager.UnregisterCow(gameObject);
-        }
+        DestroyCow(); // Centralized destruction logic
     }
 }

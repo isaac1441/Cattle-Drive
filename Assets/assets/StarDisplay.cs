@@ -9,6 +9,7 @@ public class StarDisplay : MonoBehaviour
 
     public void ShowStars(int cowsRemaining)
     {
+        Debug.Log($"Cows remaining: {cowsRemaining}");
         int starCount = CalculateStarCount(cowsRemaining);
 
         for (int i = 0; i < stars.Length; i++)
@@ -19,11 +20,11 @@ public class StarDisplay : MonoBehaviour
 
     private int CalculateStarCount(int cowsRemaining)
     {
-        if (cowsRemaining >= 3)
+        if (cowsRemaining >= 6)
             return 3;
-        else if (cowsRemaining == 2)
+        else if (cowsRemaining == 4)
             return 2;
-        else if (cowsRemaining == 1)
+        else if (cowsRemaining == 2)
             return 1;
         else
             return 0;

@@ -4,28 +4,41 @@ public class WolfAI : MonoBehaviour
 {
     public float moveSpeed = 1f; // Slow movement speed
     public string cowTag = "Cow";
+    public string bulletTag = "Bullet"; // Tag for bullets
     private Transform targetCow;
     private bool facingRight = true; // Track current facing direction
+    private float searchCooldown = 1f; // How often wolves look for cows
+    private float nextSearchTime = 0f;
+
+    public event System.Action OnWolfKilled; // Event to notify WolfSpawner
 
     void Update()
     {
-        FindClosestCow();
+        if (Time.time >= nextSearchTime)
+        {
+            FindClosestCow();
+            nextSearchTime = Time.time + searchCooldown; // Search every second
+        }
 
         if (targetCow != null)
         {
-            // Move slowly toward the cow
-            Vector3 direction = (targetCow.position - transform.position).normalized;
-            transform.position += direction * moveSpeed * Time.deltaTime;
+            MoveTowardsCow();
+        }
+    }
 
-            // Flip the wolf only between left and right based on movement direction
-            if (direction.x > 0 && !facingRight) // Moving right but facing left
-            {
-                Flip();
-            }
-            else if (direction.x < 0 && facingRight) // Moving left but facing right
-            {
-                Flip();
-            }
+    void MoveTowardsCow()
+    {
+        Vector3 direction = (targetCow.position - transform.position).normalized;
+        transform.position = Vector3.MoveTowards(transform.position, targetCow.position, moveSpeed * Time.deltaTime);
+
+        // Flip the wolf based on movement direction
+        if (direction.x > 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (direction.x < 0 && facingRight)
+        {
+            Flip();
         }
     }
 
@@ -40,12 +53,8 @@ public class WolfAI : MonoBehaviour
     void FindClosestCow()
     {
         GameObject[] cows = GameObject.FindGameObjectsWithTag(cowTag);
-
-        if (cows.Length == 0)
-        {
-            targetCow = null;
-            return;
-        }
+        targetCow = null;
+        if (cows.Length == 0) return;
 
         float closestDistance = Mathf.Infinity;
         foreach (GameObject cow in cows)
@@ -57,5 +66,28 @@ public class WolfAI : MonoBehaviour
                 targetCow = cow.transform;
             }
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // If hit by a bullet, destroy the wolf
+        if (other.CompareTag(bulletTag))
+        {
+            KillWolf();
+            Destroy(other.gameObject); // Remove bullet on impact
+        }
+
+        // If collides with a cow, destroy the cow and the wolf
+        if (other.CompareTag(cowTag))
+        {
+            KillWolf();
+            Destroy(other.gameObject); // Remove cow
+        }
+    }
+
+    void KillWolf()
+    {
+        OnWolfKilled?.Invoke(); // Notify spawner
+        Destroy(gameObject); // Destroy the wolf
     }
 }
