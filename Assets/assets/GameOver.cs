@@ -128,4 +128,9 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("CD");
     }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadSceneAsync(0);
+    }
 }
