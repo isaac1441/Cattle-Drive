@@ -1057,6 +1057,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cows1_0 Variant (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 9108246735934633585, guid: 812b984402029e84d8cd04eb6474e79e, type: 3}
+      propertyPath: m_TagString
+      value: Cow
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
